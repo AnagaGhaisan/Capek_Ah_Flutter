@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Import Provider package
 import 'screens/home_screen.dart';  // Import HomeScreen
@@ -5,9 +6,12 @@ import 'screens/liked_places_screen.dart';  // Import LikedPlacesScreen
 import 'screens/creator_screen.dart';  // Import CreatorScreen
 import 'models/liked_places_model.dart'; // Import the LikedPlacesModel
 
-void main() {
- runApp(MyApp());
-}
+void main() => runApp(
+  DevicePreview(
+    enabled: true,
+    builder: (context) => MyApp(), // Wrap your app
+  ),
+);
 
 class MyApp extends StatelessWidget {
  @override
@@ -15,6 +19,8 @@ class MyApp extends StatelessWidget {
    return ChangeNotifierProvider(
      create: (_) => LikedPlacesModel(), // Provide LikedPlacesModel here
      child: MaterialApp(
+       locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
        title: 'Highest Building',
        theme: ThemeData(
          primarySwatch: Colors.blue,
